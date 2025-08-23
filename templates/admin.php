@@ -18,6 +18,6 @@ require_once dirname(__FILE__) . "/../include/utils.php";
         <main>
             <?= $CONTENTS ?>
         </main>
-        <footer>Copyright &copy; <?= date('Y') ?> <?= $CONFIG['AUTHOR'] ?> - Powered by <a href="https://github.com/SushiBits/miniblog">miniblog</a></footer>
+        <footer>Copyright &copy; <?= date('Y') ?> <a href="/"><?= $CONFIG['AUTHOR'] ?></a> - Powered by <a href="https://github.com/SushiBits/miniblog">miniblog</a></footer>
     </body>
 </html>
