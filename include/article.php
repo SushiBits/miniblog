@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__) ."/utils.php";
+require_once dirname(__FILE__) ."/renderer.php";
 
 /**
  * The class representing an article.
@@ -54,7 +55,7 @@ class Article {
      * Enumerate all articles of a given language.
      * @param string $lang Language of the article. Defaults to the current language.
      * @throws \Exception In the case we can't enumerate the article directory, we throw an exception.
-     * @return array Array of Article objects for the language.
+     * @return array Array of Article objects for the language. Can be empty for new sites.
      */
     public static function articles(string $lang = null): array {
         if (empty($lang))
@@ -70,7 +71,7 @@ class Article {
             $articles[] = new self($filepath);
 
         usort($articles, function(Article $a, Article $b) {
-            return $a->get_ctime() < $b->get_ctime();
+            return $b->get_ctime() <=> $a->get_ctime();
         });
 
         return $articles;
@@ -118,14 +119,19 @@ class Article {
 
     public function render(): string {
         if (empty($this->rendered)) {
-            // TODO: Render the Markdown
+            $renderer = new Renderer();
+            $this->rendered = $renderer->text($this->get_contents());
         }
         return $this->rendered;
     }
 
+    public function save(): int|bool {
+        return file_put_contents($this->filepath, $this->get_contents());
+    }
+
     public function get_article_name(): string {
         if (empty($this->article_name)) {
-            $h1s = preg_grep('/^#\s.*$/', explode('\n', $this->get_contents()));
+            $h1s = preg_grep('/^#\s.*$/', explode(PHP_EOL, $this->get_contents()));
             if (!empty($h1s)) {
                 $h1 = reset($h1s);
                 $h1pcs = array();
@@ -137,5 +143,17 @@ class Article {
             }
         }
         return $this->article_name;
+    }
+
+    private function path_in_lang(string $lang): string {
+        return dirname($this->filepath, 2) . DIRECTORY_SEPARATOR . $lang . DIRECTORY_SEPARATOR . basename($this->filepath);
+    }
+
+    public function available_in_lang(string $lang): bool {
+        return is_file($this->path_in_lang($lang));
+    }
+
+    public function article_in_lang(string $lang): Article {
+        return new self($this->path_in_lang($lang));
     }
 }
