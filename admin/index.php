@@ -34,6 +34,5 @@ ob_start();
     </tr>
 </table>
 <?php
-$CONTENTS = ob_get_contents();
-ob_end_clean();
+$CONTENTS = ob_get_clean();
 require_once dirname(__FILE__) .'/../templates/admin.php';

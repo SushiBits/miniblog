@@ -37,6 +37,5 @@ ob_start();
     <div class="buttons"><input type="submit" name="Login" /></div>
 </form>
 <?php
-$CONTENTS = ob_get_contents();
-ob_end_clean();
+$CONTENTS = ob_get_clean();
 require_once dirname(__FILE__) .'/../templates/admin.php';
