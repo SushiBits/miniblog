@@ -38,4 +38,4 @@ ob_start();
 </form>
 <?php
 $CONTENTS = ob_get_clean();
-require_once dirname(__FILE__) .'/../templates/admin.php';
+require_once dirname(__FILE__) .'/../include/templates/admin.php';
