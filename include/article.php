@@ -1,17 +1,48 @@
 <?php
 require_once dirname(__FILE__) ."/utils.php";
 
-
+/**
+ * The class representing an article.
+ */
 class Article {
+    /**
+     * Path to the Markdown file.
+     * @var string
+     */
     private string $filepath;
+
+    /**
+     * Contents of the article. Loaded lazily.
+     * @var string
+     */
     private string $contents;
+
+    /**
+     * Rendered HTML elements of the article. Loaded lazily.
+     * @var string
+     */
     private string $rendered;
+
+    /**
+     * Name of the article, stored as the first H1 in the Markdown. Loaded lazily.
+     * @var string
+     */
     private string $article_name;
 
+    /**
+     * Initialize an article with path to the Markdown file.
+     * @param string $filepath Path to the Markdown file.
+     */
     public function __construct(string $filepath) {
         $this->filepath = $filepath;
     }
 
+    /**
+     * Initialize an article with indicated slug and language.
+     * @param string $slug Article slug.
+     * @param string $lang Language of the article. Defaults to the current language.
+     * @return Article The newly initialized article object.
+     */
     public static function article(string $slug, string $lang = null): Article {
         if (empty($lang))
             $lang = get_current_language();
@@ -19,6 +50,12 @@ class Article {
         return new Article(dirname(__FILE__) . "/../articles/$lang/$slug.md");
     }
 
+    /**
+     * Enumerate all articles of a given language.
+     * @param string $lang Language of the article. Defaults to the current language.
+     * @throws \Exception In the case we can't enumerate the article directory, we throw an exception.
+     * @return array Array of Article objects for the language.
+     */
     public static function articles(string $lang = null): array {
         if (empty($lang))
             $lang = get_current_language();

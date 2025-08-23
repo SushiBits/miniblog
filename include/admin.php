@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Check authentication status for the current page. Send to login page if not authenticated.
+ * @return void
+ */
 function require_auth() {
     session_start();
 
@@ -11,6 +15,10 @@ function require_auth() {
     }
 }
 
+/**
+ * Create a link to the login or logout page.
+ * @return string HTML elements with the link to login, or a greeting and a link to logout.
+ */
 function auth_link(): string {
     session_start();
 
