@@ -22,6 +22,7 @@ This blog system expects the following environment:
 The following dependencies are included in the package:
 
 * [Parsedown](https://github.com/erusev/parsedown).
+* [php-i18n](https://github.com/Philipp15b/php-i18n).
 
 # Contact
 
