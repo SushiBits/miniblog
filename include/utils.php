@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . "/config.php";
-require_once dirname(__FILE__) ."/i18n.class.php";
+require_once dirname(__FILE__) ."/contrib/i18n.class.php";
 
 $LANGDIR = dirname(__FILE__) . "/languages";
 $LANGCACHE = dirname(__FILE__) . "/.langcache";

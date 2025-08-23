@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) ."/Parsedown.php";
+require_once dirname(__FILE__) ."/contrib/Parsedown.php";
 
 class Renderer extends Parsedown {
     protected function inlineImage($Excerpt) {
