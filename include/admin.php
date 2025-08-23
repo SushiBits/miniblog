@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . "/../include/utils.php";
 
 /**
  * Check authentication status for the current page. Send to login page if not authenticated.
@@ -23,8 +24,8 @@ function auth_link(): string {
     session_start();
 
     if (!empty($_SESSION['username'])) {
-        return htmlentities($_SESSION['username']) . '<a href="/admin/logout.php">Logout</a>';
+        return htmlentities($_SESSION['username']) . ' · <a href="/admin/logout.php">' . L::Admin_LOGOUT . '</a>';
     } else {
-        return '<a href="/admin/login.php?return_uri=' . urlencode($_SERVER['REQUEST_URI']) .'">Login</a>';
+        return L::Admin_NO_USER . ' · <a href="/admin/login.php?return_uri=' . urlencode($_SERVER['REQUEST_URI']) .'">' . L::Admin_LOGIN . '</a>';
     }
 }
