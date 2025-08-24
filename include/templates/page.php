@@ -1,17 +1,25 @@
 <?php
 require_once dirname(__FILE__) . "/../config.php";
 require_once dirname(__FILE__) . "/../utils.php";
+
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="<?= get_current_language() ?>">
     <head>
         <meta charset="utf-8" />
-        <title><?= L::SITENAME ?> - <?= $TITLE ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><?= L::SITENAME ?><?= !empty($TITLE) ? " · $TITLE" : "" ?></title>
+        <link href="/images/harmonyos-sans/harmonyos-sans.css" rel="stylesheet" />
+        <link href="/images/index.css" rel="stylesheet" />
         <?php if (!empty($HEADERS)) echo $HEADERS ?>
     </head>
     <body>
         <header>
-            <div><?= L::SITENAME ?> - <?= $TITLE ?></div>
+            <div><a href="/" style="text-decoration: none"><?= L::SITENAME ?></a><?= !empty($TITLE) ? " · $TITLE" : "" ?></div>
+            <?php if (!empty($_SESSION['username'])) { ?>
+            <div class="authlink"><a href="/admin/"><?= L::Admin_CONTROL_PANEL ?></a></div>
+            <?php } ?>
         </header>
         <main>
             <?= $CONTENTS ?>

@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__) . "/include/config.php";
 
-$TITLE = 'Home Page';
+$TITLE = '';
 
 ob_start();
 ?>
