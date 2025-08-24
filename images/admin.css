@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'HarmonyOS Sans', 'HarmonyOS Sans SC', '微软雅黑', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eeeeee;
+    color: #888888;
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    font-size: 18px;
+    height: 44px;
+    color: white;
+    background-color: #333333;
+    overflow: hidden;
+    vertical-align: middle;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+header div {
+    padding-left: 12px;
+    padding-right: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 480px) {
+    header div.authlink {
+        display: none;
+    }
+}
+
+header a {
+    color: white;
+}
+
+main {
+    padding: 12px;
+    margin-top: 44px;
+}
+
+footer {
+    padding: 12px;
+    font-size: 12px;
+    text-align: center;
+}
+
+footer a {
+    color: #888888;
+}

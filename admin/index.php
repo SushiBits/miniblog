@@ -21,7 +21,8 @@ ob_start();
     </tr>
     <?php if (empty($articles)) { ?>
     <tr><td colspan="5" class="noarticle"><?= L::Article_NO_ARTICLE ?></td></tr>
-    <?php } else array_walk($articles, function(Article $article) { ?>
+    <?php } else {
+        array_walk($articles, function(Article $article) { ?>
     <tr>
         <td><a href="/admin/edit.php?article=<?= $article->get_slug() ?>"><?= htmlspecialchars($article->get_article_name()) ?></a></td>
         <td><?= $article->get_slug() ?></td>
@@ -33,6 +34,7 @@ ob_start();
     <tr>
         <td colspan="5" class="pagination"></td>
     </tr>
+    <?php } ?>
 </table>
 <?php
 $CONTENTS = ob_get_clean();
