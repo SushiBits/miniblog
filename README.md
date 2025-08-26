@@ -23,7 +23,7 @@ The following dependencies are included in the package:
 
 * [Parsedown](https://github.com/erusev/parsedown).
 * [php-i18n](https://github.com/Philipp15b/php-i18n).
-* [HarmonyOS Sans font](https://developer.huawei.com/consumer/cn/design/resource-V1/).
+* [HarmonyOS design resources](https://developer.huawei.com/consumer/cn/design/resource-V1/).
 
 # Contact
 
