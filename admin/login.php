@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ob_start();
 ?>
-<style type="text/css">
+<style>
     form {
         display: flex;
         flex-direction: column;
