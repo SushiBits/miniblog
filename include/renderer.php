@@ -51,7 +51,7 @@ class Renderer extends Parsedown {
         ob_start();
 ?>
 <div class="embed-container pdf">
-    <embed src="<?= $src ?>" type="application/pdf" width="100%" height="600px" />
+    <embed src="<?= htmlspecialchars($src) ?>" type="application/pdf" width="100%" height="600px" />
 </div>
 <?php
         $html = ob_get_clean();
@@ -64,8 +64,8 @@ class Renderer extends Parsedown {
         ob_start();
 ?>
 <div class="embed-container svg">
-    <object data="<?= $src ?>" type="image/svg+xml" width="100%">
-        <img src="<?= $src ?>" alt="<?= htmlspecialchars($alt) ?>" />
+    <object data="<?= htmlspecialchars($src) ?>" type="image/svg+xml" width="100%">
+        <img src="<?= htmlspecialchars($src) ?>" alt="<?= htmlspecialchars($alt) ?>" />
     </object>
 </div>
 <?php

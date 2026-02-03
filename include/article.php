@@ -30,6 +30,8 @@ class Article {
      */
     private string $article_name;
 
+    private string $abstract;
+
     /**
      * Initialize an article with path to the Markdown file.
      * @param string $filepath Path to the Markdown file.
@@ -85,6 +87,10 @@ class Article {
         $this->filepath = $filepath;
     }
 
+    public function file_exists(): bool {
+        return file_exists($this->get_filepath());
+    }
+
     public function get_slug(): string {
         return basename($this->filepath, '.md');
     }
@@ -115,6 +121,7 @@ class Article {
         $this->contents = $contents;
         unset($this->rendered);
         unset($this->article_name);
+        unset($this->abstract);
     }
 
     public function render(): string {
@@ -155,5 +162,31 @@ class Article {
 
     public function article_in_lang(string $lang): Article {
         return new self($this->path_in_lang($lang));
+    }
+
+    private function get_abstract_paragraph(): string {
+        $lines = explode(PHP_EOL, $this->get_contents());
+        $in_paragraph = false;
+        $paragraph_lines = [];
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line) || str_starts_with($line, '#')) {
+                if ($in_paragraph) break;
+                else continue;
+            }
+            if (!$in_paragraph) $in_paragraph = true;
+            $paragraph_lines[] = $line;
+        }
+
+        return implode(PHP_EOL, $paragraph_lines);
+    }
+    
+    public function get_abstract(): string {
+        if (empty($this->abstract)) {
+            $renderer = new Renderer();
+            $this->abstract = $renderer->text('## ' . $this->get_article_name() . PHP_EOL . PHP_EOL . $this->get_abstract_paragraph());
+        }
+        return $this->abstract;
     }
 }
