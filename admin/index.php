@@ -79,11 +79,11 @@ ob_start();
     <?php } else {
         array_walk($articles, function(Article $article) { ?>
     <tr>
-        <td><a href="/admin/edit.php?article=<?= $article->get_slug() ?>"><?= htmlspecialchars($article->get_article_name()) ?></a></td>
-        <td><?= $article->get_slug() ?></td>
+        <td><a href="/admin/edit.php?article=<?= urlencode($article->get_slug()) ?>"><?= htmlspecialchars($article->get_article_name()) ?></a></td>
+        <td><?= htmlspecialchars($article->get_slug()) ?></td>
         <td><?= htmlspecialchars(date($GLOBALS['CONFIG']['DATE_FORMAT'], $article->get_ctime())) ?></td>
         <td><?= htmlspecialchars(date($GLOBALS['CONFIG']['DATE_FORMAT'], $article->get_mtime())) ?></td>
-        <td><a href="/admin/edit.php?delete=<?= $article->get_slug() ?>"><?= L::Article_DELETE ?></a></td>
+        <td><a href="/admin/edit.php?delete=<?= urlencode($article->get_slug()) ?>"><?= L::Article_DELETE ?></a></td>
     </tr>    
     <?php }); ?>
     <tr>
