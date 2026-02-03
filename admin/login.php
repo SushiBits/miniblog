@@ -7,21 +7,25 @@ $TITLE = L::Admin_LOGIN;
 
 $error = '';
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$return_uri = $_GET['return_uri'];
-if (empty($return_uri)) $return_uri = '/admin/';
-
 session_start();
+
+$return_uri = $_GET['return_uri'];
+if (!str_starts_with($return_uri, '/admin/') || str_contains($return_uri, '..')) $return_uri = '/admin/';
+if (empty($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
 if (!empty($_SESSION['username'])) {
     header('Location: ' . $return_uri);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    session_start();
-    if (pam_auth($username, $password, $error)) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if ($_SESSION['csrf_token'] !== $_POST['csrf_token']) {
+        $error = L::Admin_CSRF_FAIL;
+    } else if (pam_auth($username, $password, $error)) {
         $_SESSION['username'] = $username;
+        session_regenerate_id(true);
         header('Location: ' . $return_uri);
         exit;
     }
@@ -138,7 +142,10 @@ ob_start();
     <?php if (!empty($error)) { ?>
     <div class="errormsg"><?= htmlentities($error) ?></div>
     <?php } ?>
-    <div class="buttons"><input class="login" type="submit" value="<?= L::Admin_LOGIN ?>" /></div>
+    <div class="buttons">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+        <input class="login" type="submit" value="<?= L::Admin_LOGIN ?>" />
+    </div>
 </form>
 <?php
 $CONTENTS = ob_get_clean();
