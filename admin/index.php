@@ -77,7 +77,7 @@ ob_start();
     <?php if (empty($articles)) { ?>
     <tr><td colspan="5" class="noarticle"><?= L::Article_NO_ARTICLE ?></td></tr>
     <?php } else {
-        array_walk($articles, function(Article $article) { ?>
+        foreach ($articles as $article) { ?>
     <tr>
         <td><a href="/admin/edit.php?article=<?= urlencode($article->get_slug()) ?>"><?= htmlspecialchars($article->get_article_name()) ?></a></td>
         <td><?= htmlspecialchars($article->get_slug()) ?></td>
@@ -85,7 +85,7 @@ ob_start();
         <td><?= htmlspecialchars(date($GLOBALS['CONFIG']['DATE_FORMAT'], $article->get_mtime())) ?></td>
         <td><a href="/admin/edit.php?delete=<?= urlencode($article->get_slug()) ?>"><?= L::Article_DELETE ?></a></td>
     </tr>    
-    <?php }); ?>
+    <?php } ?>
     <tr>
         <td colspan="5" class="pagination"></td>
     </tr>
