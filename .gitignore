@@ -2,3 +2,6 @@
 articles/
 attachments/
 include/.langcache
+
+# System files
+/index.*.html
