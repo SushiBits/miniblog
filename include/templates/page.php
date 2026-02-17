@@ -9,7 +9,7 @@ session_start();
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title><?= L::SITENAME ?><?= !empty($TITLE) ? " · $TITLE" : "" ?></title>
+        <title><?= !empty($TITLE) ? "$TITLE · " : "" ?><?= L::SITENAME ?></title>
         <link href="/images/harmonyos-sans/harmonyos-sans.css" rel="stylesheet" />
         <link href="/images/index.css" rel="stylesheet" />
         <?php if (!empty($HEADERS)) echo $HEADERS ?>
@@ -24,6 +24,9 @@ session_start();
         <main>
             <?= $CONTENTS ?>
         </main>
-        <footer>Copyright &copy; <?= date('Y') ?> <a href="/"><?= L::AUTHOR ?></a> - Powered by <a href="https://github.com/SushiBits/miniblog">miniblog</a></footer>
+        <footer>Copyright &copy; <?= date('Y') ?> <a href="/"><?= L::AUTHOR ?></a>
+        <?php if (!empty($CONFIG['MIITBEIAN'])) { ?>· <a href="http://beian.miit.gov.cn/"><?= htmlspecialchars($CONFIG['MIITBEIAN']) ?></a><?php } ?>
+        <?php if (!empty($CONFIG['MPSBEIAN'])) { ?>· <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=<?= preg_replace('/[^0-9]/', '', $CONFIG['MPSBEIAN']) ?>"><img style="height: 1em" src="/images/mpsbeian.png" /><?= htmlspecialchars($CONFIG['MPSBEIAN']) ?></a><?php } ?>
+        · Powered by <a href="https://github.com/SushiBits/miniblog">miniblog</a></footer>
     </body>
 </html>
