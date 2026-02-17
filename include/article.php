@@ -185,7 +185,7 @@ class Article {
     public function get_abstract(): string {
         if (empty($this->abstract)) {
             $renderer = new Renderer();
-            $this->abstract = $renderer->text('## ' . $this->get_article_name() . PHP_EOL . PHP_EOL . $this->get_abstract_paragraph());
+            $this->abstract = $renderer->text($this->get_abstract_paragraph());
         }
         return $this->abstract;
     }

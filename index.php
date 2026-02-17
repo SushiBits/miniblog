@@ -11,11 +11,19 @@ if ($request_path === '/') {
     $articles = Article::articles();
     ob_start();
 ?>
+    <h1><?= L::SITENAME ?></h1>
+    <hr />
 <?php if (empty($articles)) { ?>
+    <p class="no-article"><?= L::Article_NO_ARTICLE ?></p>
 <?php
     } else {
         foreach ($articles as $article) {
 ?>
+    <div class="article">
+        <h2><a class="article-link" href="/<?= urlencode($article->get_slug()) ?>.html"><?= htmlspecialchars($article->get_article_name()) ?></a></h2>
+        <?= $article->get_abstract() ?>
+        <hr />
+    </div>
 <?php
         }
     }
